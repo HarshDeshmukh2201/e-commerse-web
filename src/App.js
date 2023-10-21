@@ -7,8 +7,10 @@ function App() {
 
   return (
  <>
+
  <Signup/>
  {/* <Login/> */}
+
  </>
   );
 }
