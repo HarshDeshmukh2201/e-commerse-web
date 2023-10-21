@@ -1,10 +1,16 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Signup from './login/Signup';
+import Login from './login/Login';
 
 function App() {
+
   return (
  <>
- harsh
+
+ <Signup/>
+ {/* <Login/> */}
+
  </>
   );
 }
