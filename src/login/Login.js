@@ -12,11 +12,17 @@ function Login() {
   } = useForm();
   const onSubmit = (data) => {
    
-    localStorage.setItem(data, JSON.stringify({ 
-      name: data.name, password: data.password 
-  }));
-  
-    reset();
+    const userData = JSON.parse(localStorage.getItem(data.email));
+    if (userData) { // getItem can return actual value or null
+        if (userData.password === data.password ) {
+           alert(userData.name + " You Are Successfully Logged In");
+        } else {
+            alert("Email or Password is not matching with our record");
+        }
+    } else {
+        alert("Email or Password is not matching with our record");
+    }
+
   };
   return (
 
@@ -37,11 +43,11 @@ function Login() {
                     <i className="zmdi zmdi-account material-icons-name" />
                   </label>
                   <input
-                    type="text"                    name="your_name"
-                    id="your_name"
-                    placeholder="Your Name"
+                    type="text"                    name="your_email"
+                    id="your_Email"
+                    placeholder="Your Email"
                    
-                    {...register("name", { required: "name is required" })}
+                    {...register("email", { required: "Email is required" })}
                   />
                  
                   {/* <span className="text-danger" > {errors.name.message}</span>

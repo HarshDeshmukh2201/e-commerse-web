@@ -9,8 +9,12 @@ function App() {
  <>
 
  <Signup/>
+<<<<<<< HEAD
+ <Login/>
+=======
  {/* <Login/> */}
 
+>>>>>>> 4ba5d2779d50536c9bd4525d5a970d1053ff4d9a
  </>
   );
 }

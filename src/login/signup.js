@@ -7,8 +7,8 @@ function Signup() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
  
   const onSubmit = (data) =>{
-    localStorage.setItem(data, JSON.stringify({ 
-      name: data.name, password: data.Password, email: data.email , rpassword: data.rpassword
+    localStorage.setItem(data.email, JSON.stringify({ 
+      name: data.name, password: data.password, email: data.email 
   }));
   reset()
   console.log(JSON.parse(localStorage.getItem(data.email)));
@@ -46,8 +46,10 @@ function Signup() {
                 name="email"
                 id="email"
                 placeholder="Your Email"
-                {...register("email")}
+                {...register("email", { required: true })}
               />
+              {errors.email && <span style={{ color: "red" }}>
+                    *Email* is mandatory </span>}
             </div>
             <div className="form-group">
               <label htmlFor="pass">
@@ -58,21 +60,12 @@ function Signup() {
                 name="pass"
                 id="pass"
                 placeholder="Password"
-                {...register("password")}
+                {...register("password",{ required: true })}
               />
+                {errors.password && <span style={{ color: "red" }}>
+                    *Password* is mandatory </span>}
             </div>
-            <div className="form-group">
-              <label htmlFor="re-pass">
-                <i className="zmdi zmdi-lock-outline" />
-              </label>
-              <input
-                type="password"
-                name="re_pass"
-                id="re_pass"
-                placeholder="Repeat your password"
-                {...register("rpassword")}
-              />
-            </div>
+        
          
             <div className="form-group form-button">
               <input
