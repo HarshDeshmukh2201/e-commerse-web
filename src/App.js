@@ -8,7 +8,7 @@ function App() {
   return (
  <>
  <Signup/>
- {/* <Login/> */}
+ <Login/>
  </>
   );
 }
