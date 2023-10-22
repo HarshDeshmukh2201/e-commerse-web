@@ -15,6 +15,7 @@ function Signup() {
 
   }
   return (
+
     <>
     <div className="main">
   {/* Sign up form */}
@@ -86,6 +87,7 @@ function Signup() {
           </a>
         </div>
       </div>
+
     </div>
   </section>
   
