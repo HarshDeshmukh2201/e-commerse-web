@@ -1,4 +1,4 @@
-import React from "react";
+
 import logo from "../images/signup-image.jpg";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./Auth.css"
 
 function Login() {
+
   const {
     register,
     handleSubmit,
@@ -53,8 +54,11 @@ function Login() {
         theme: "dark",
         });
     }
+    reset()
 
   };
+
+
   return (
 
     <div className="main">
@@ -78,11 +82,11 @@ function Login() {
                     id="your_Email"
                     placeholder="Your Email"
                    
-                    {...register("email", { required: "Email is required" })}
+                    {...register("email", { required: true })}
                   />
                  
-                  {/* <span className="text-danger" > {errors.name.message}</span>
-                 */}
+             
+                
                 </div>
                 <div className="form-group">
                   <label htmlFor="your_pass">
@@ -93,9 +97,10 @@ function Login() {
                     name="your_pass"
                     id="your_pass"
                     placeholder="Password"
-                    {...register("password",{ required: "Password is required"})}
+                    {...register("password",{ required: true})}
                   />
-                  {/* <span className="text-danger" > {errors.password.message}</span> */}
+                 
+             
 
                 </div>
 
