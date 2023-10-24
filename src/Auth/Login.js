@@ -1,6 +1,9 @@
 import React from "react";
 import logo from "../images/signup-image.jpg";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "./Auth.css"
 
 function Login() {
   const {
@@ -15,12 +18,40 @@ function Login() {
     const userData = JSON.parse(localStorage.getItem(data.email));
     if (userData) { // getItem can return actual value or null
         if (userData.password === data.password ) {
-           alert(userData.name + " You Are Successfully Logged In");
+          toast(userData.name + " You Are Successfully Logged In",{
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         } else {
-            alert("Email or Password is not matching with our record");
+          toast("Email or Password is not matching with our record", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
     } else {
-        alert("Email or Password is not matching with our record");
+      toast("Email or Password is not matching with our record",
+       {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
 
   };
@@ -82,6 +113,17 @@ function Login() {
           </div>
         </div>
       </section>
+      <ToastContainer 
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"/>
 
     </div>
   );
