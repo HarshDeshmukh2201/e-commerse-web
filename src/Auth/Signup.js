@@ -1,18 +1,22 @@
 import React from 'react'
 import img from "../images/signin-image.jpg"
 import { useForm } from "react-hook-form";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "./Auth.css"
 
 function Signup() {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, reset,  trigger, formState: { errors } } = useForm();
  
   const onSubmit = (data) =>{
     localStorage.setItem(data.email, JSON.stringify({ 
-      name: data.name, password: data.password, email: data.email 
+    
+      name: data.name,phoneNo:data.phone, password: data.password, email: data.email ,confirmPassword:data.repeatPassword
+
   }));
   reset()
   console.log(JSON.parse(localStorage.getItem(data.email)));
-
+  toast("Registration Successfull")
   }
   return (
 
@@ -33,9 +37,28 @@ function Signup() {
                 type="text"
                 name="name"
                 id="name"
-                placeholder="Your Name"
-                {...register("name")}
+                placeholder="Full Name"
+                {...register("name",{required:"name is required"})}
               />
+               {errors.name && (
+                  <span className="text-info" > {errors.name.message}</span>
+                )}
+             
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">
+                <i className="zmdi zmdi-account material-icons-name" />
+              </label>
+              <input
+                type="number"
+                
+                placeholder="Phone Number"
+                {...register("phone",{required:"phone numberis required"})}
+              />
+               {errors.phone && (
+                  <span className="text-info" > {errors.phone.message}</span>
+                )}
+             
             </div>
             <div className="form-group">
               <label htmlFor="email">
@@ -46,10 +69,21 @@ function Signup() {
                 name="email"
                 id="email"
                 placeholder="Your Email"
-                {...register("email", { required: true })}
+                {...register("email",{ 
+                  required: "email is required",  
+                  pattern:{ value:/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ ,
+                  message:"invalid email address"}
+              },
+              )}
+              onClick={() => {
+                trigger("email")
+              }}
+
               />
-              {errors.email && <span style={{ color: "red" }}>
-                    *Email* is mandatory </span>}
+                {errors.email && (
+                  <span className="text-danger" > {errors.email.message}</span>
+                )}
+            
             </div>
             <div className="form-group">
               <label htmlFor="pass">
@@ -60,10 +94,16 @@ function Signup() {
                 name="pass"
                 id="pass"
                 placeholder="Password"
-                {...register("password",{ required: true })}
+                onClick={() => {
+                  trigger("password")
+                }}
+  
+                {...register("password",{ required: "*Password* is mandatory ",   minLength: { value: "6", message: "min 6 char" } })}
               />
-                {errors.password && <span style={{ color: "red" }}>
-                    *Password* is mandatory </span>}
+              {errors.password && (
+                  <span className="text-danger" > {errors.password.message}</span>
+                )}
+                
             </div>
             <div className="form-group">
               <label htmlFor="pass">
@@ -73,11 +113,17 @@ function Signup() {
                 type="password"
                 name="pass"
                 id="pass"
-                placeholder="Repeat Password"
-                {...register("repeatPassword",{ required: true })}
+                placeholder="Confirm Password"
+                {...register("repeatPassword",{ required:"*confirmPassword* is mandatory "})}
+                onClick={() => {
+                  trigger("repeatPassword")
+                }}
+  
               />
-                {errors.repeatPassword && <span style={{ color: "red" }}>
-                    *repeatPassword* is mandatory </span>}
+               {errors.repeatPassword && (
+                  <span className="text-danger" > {errors.repeatPassword.message}</span>
+                )}
+                
             </div>
         
          
