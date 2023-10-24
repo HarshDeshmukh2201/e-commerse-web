@@ -511,4 +511,12 @@
       margin-bottom: 10px; } }
   
   /*# sourceMappingURL=style.css.map */
+
+
+  .eye-pos{
+    position: relative;
+    bottom: 31px;
+    left: 262px;
+    font-size: 23px;
+  }
   
