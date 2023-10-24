@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import img from "../images/signin-image.jpg"
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./Auth.css"
+import {BsEye} from "react-icons/bs"
+import {BsEyeSlash} from "react-icons/bs"
 
 function Signup() {
-  const { register, handleSubmit, reset,  trigger, formState: { errors } } = useForm();
+  const [type, setType] = useState('password');
+  const [eye , setEye] =useState(true)
+  const handleToggle = ()=>{
+    if (type==='password'){
+      setEye(false)
+      setType('text')
+   } else {
+    setEye(true)
+     
+      setType('password')
+   }
+  }
+  const { register, handleSubmit, reset,watch,  trigger, formState: { errors } } = useForm();
  
   const onSubmit = (data) =>{
     localStorage.setItem(data.email, JSON.stringify({ 
@@ -28,7 +42,7 @@ function Signup() {
       <div className="signup-content">
         <div className="signup-form">
           <h2 className="form-title">Sign up</h2>
-          <form onSubmit={handleSubmit(onSubmit)} className="register-form" id="register-form">
+          <form onSubmit={handleSubmit(onSubmit)} className="register-form" id="register-form"        noValidate>
             <div className="form-group">
               <label htmlFor="name">
                 <i className="zmdi zmdi-account material-icons-name" />
@@ -41,7 +55,7 @@ function Signup() {
                 {...register("name",{required:"name is required"})}
               />
                {errors.name && (
-                  <span className="text-info" > {errors.name.message}</span>
+                  <span className="text-info" style={{color:"red"}}> {errors.name.message}</span>
                 )}
              
             </div>
@@ -56,7 +70,7 @@ function Signup() {
                 {...register("phone",{required:"phone numberis required"})}
               />
                {errors.phone && (
-                  <span className="text-info" > {errors.phone.message}</span>
+                  <span className="text-info"  style={{color:"red"}} > {errors.phone.message}</span>
                 )}
              
             </div>
@@ -75,36 +89,34 @@ function Signup() {
                   message:"invalid email address"}
               },
               )}
-              onClick={() => {
-                trigger("email")
-              }}
+            
 
               />
                 {errors.email && (
-                  <span className="text-danger" > {errors.email.message}</span>
+                  <span className="text-danger" style={{color:"red"}} > {errors.email.message}</span>
                 )}
             
             </div>
-            <div className="form-group">
+            <div className="form-group" style={{    marginBottom: "0px"}}>
               <label htmlFor="pass">
                 <i className="zmdi zmdi-lock" />
               </label>
               <input
-                type="password"
+                type={type}
                 name="pass"
                 id="pass"
                 placeholder="Password"
                 onClick={() => {
                   trigger("password")
                 }}
-  
-                {...register("password",{ required: "*Password* is mandatory ",   minLength: { value: "6", message: "min 6 char" } })}
+
+                {...register("password",{ required: true,   minLength: { value: "8", message: "Must be at least 8 charactor"  } })}
               />
+              <span className='eye-pos '  onClick={handleToggle }>{eye?<BsEyeSlash/>:<BsEye/>}</span> 
               {errors.password && (
-                  <span className="text-danger" > {errors.password.message}</span>
+                  <span className="text-danger"style={{color:"red"}}   > {errors.password.message}</span>
                 )}
-                
-            </div>
+  </div>
             <div className="form-group">
               <label htmlFor="pass">
                 <i className="zmdi zmdi-lock" />
@@ -114,15 +126,16 @@ function Signup() {
                 name="pass"
                 id="pass"
                 placeholder="Confirm Password"
-                {...register("repeatPassword",{ required:"*confirmPassword* is mandatory "})}
+                {...register("repeatPassword",{ required:true  ,validate:(value)=> value === watch("password")|| "Passwords do not match"})}
                 onClick={() => {
                   trigger("repeatPassword")
                 }}
   
               />
                {errors.repeatPassword && (
-                  <span className="text-danger" > {errors.repeatPassword.message}</span>
+                  <span className="text-danger" style={{color:"red"}} > {errors.repeatPassword.message}</span>
                 )}
+                
                 
             </div>
         
